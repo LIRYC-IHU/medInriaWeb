@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projet Tailwind + DaisyUI + AlpineJS</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- DaisyUI CSS uniquement -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
+
+  <!-- AlpineJS -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="p-8 bg-base-200">
+
+  <div x-data="{ open: false }" class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
+    <h1 class="text-2xl font-bold mb-4">Bonjour, et bienvenue au Lyric !</h1>
+
+    <button @click="open = !open" class="btn btn-primary mb-8">
+      Toggle button test
+    </button>
+
+    <div x-show="open" class="alert alert-info">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, libero? Corporis voluptatibus dicta autem maxime quia aspernatur ipsa eius ex?</p>
+    </div>
+  </div>
+
+</body>
+</html>
