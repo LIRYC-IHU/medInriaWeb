@@ -3,30 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projet Tailwind + DaisyUI + AlpineJS</title>
+  <title>Liryc - Viewer</title>
 
-  <!-- Tailwind CSS via CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- DaisyUI CSS uniquement -->
+  <!-- DaisyUI -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
 
   <!-- AlpineJS -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="p-8 bg-base-200">
+<body class="bg-slate-900 text-white min-h-screen flex">
 
-  <div x-data="{ open: false }" class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
-    <h1 class="text-2xl font-bold mb-4">Bonjour, et bienvenue au Lyric !</h1>
-
-    <button @click="open = !open" class="btn btn-primary mb-8">
-      Toggle button test
-    </button>
-
-    <div x-show="open" class="alert alert-info">
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, libero? Corporis voluptatibus dicta autem maxime quia aspernatur ipsa eius ex?</p>
+  <!-- Sidebar gauche -->
+  <aside class="w-64 bg-slate-800 p-6 flex flex-col justify-between">
+    <div>
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-cyan-400">liryc</h1>
+        <p class="text-sm text-slate-400">L’institut des maladies du rythme cardiaque</p>
+      </div>
+      <div class="mb-6">
+        <button class="btn btn-sm w-full btn-outline btn-info">Data Source</button>
+      </div>
+      <div class="bg-slate-700 rounded-lg p-4 text-xs space-y-1">
+        <p><strong>ID:</strong> L181-478-332</p>
+        <p><strong>Name:</strong> ANON133</p>
+        <p><strong>Date:</strong> 22-06-2024 11:02</p>
+        <p><strong>Place:</strong> IHU Liryc</p>
+        <p><strong>Modality:</strong> .extension</p>
+        <p><strong>Images:</strong> 50</p>
+      </div>
     </div>
-  </div>
+    <div>
+      <input type="text" placeholder="Quick Search" class="input input-bordered w-full input-sm" />
+    </div>
+  </aside>
 
+  <!-- Zone centrale -->
+  <main class="flex-1 flex flex-col">
+    <!-- Bandeau haut -->
+    <header class="bg-slate-800 p-4 flex justify-between items-center">
+      <div class="w-1/2 h-6 bg-slate-700 rounded"></div>
+      
+      <!-- Bouton connexion avec modale -->
+      <div x-data="{ open: false }">
+        <button @click="open = true" class="flex items-center gap-2 btn btn-sm btn-outline btn-info">
+          <!-- SVG importé depuis ton dossier -->
+          Se connecter
+          <svg xmlns="http://www.w3.org/2000/svg" 
+                     viewBox="0 0 24 24" 
+                     class="w-5 h-5 fill-current text-cyan-400">
+                  <path d="m13 16 5-4-5-4v3H4v2h9z"/>
+                  <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"/>
+                </svg>
+        </button>
+
+        <!-- Modale DaisyUI -->
+        <div x-show="open" class="modal modal-open">
+          <div class="modal-box bg-slate-800 text-white">
+            <h3 class="font-bold text-lg mb-4">Connexion</h3>
+            <form class="space-y-4">
+              <input type="text" placeholder="Identifiant" class="input input-bordered w-full" />
+              <input type="password" placeholder="Mot de passe" class="input input-bordered w-full" />
+              <button class="btn btn-primary w-full flex items-center justify-center gap-2">
+                <span>Se connecter</span>
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                     viewBox="0 0 24 24" 
+                     class="w-5 h-5 fill-current text-white">
+                  <path d="m13 16 5-4-5-4v3H4v2h9z"/>
+                  <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"/>
+                </svg>
+              </button>
+              
+            </form>
+            <div class="modal-action">
+              <button @click="open = false" class="btn">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Viewer -->
+    <div class="flex-1 flex">
+      <div class="flex-1 flex items-center justify-center bg-black">
+        <img src="https://via.placeholder.com/600x600" alt="CT Viewer" class="max-h-full max-w-full" />
+      </div>
+      <aside class="w-80 bg-slate-800 p-4 flex flex-col justify-between">
+        <div>
+          <img src="https://via.placeholder.com/250x250" alt="Secondary View" class="rounded-lg mb-4" />
+        </div>
+        <div class="bg-slate-700 p-4 rounded-lg mb-4">
+          <button class="btn btn-primary w-full">RUN SCRIPT</button>
+        </div>
+        <div class="bg-slate-700 rounded-lg p-4 text-xs space-y-1">
+          <p><strong>Task Report</strong></p>
+          <p>Tasks needing attention: 3</p>
+          <p>Tasks failed to complete: 0</p>
+          <p>Tasks successfully completed: 5 of 12</p>
+        </div>
+      </aside>
+    </div>
+  </main>
 </body>
 </html>
