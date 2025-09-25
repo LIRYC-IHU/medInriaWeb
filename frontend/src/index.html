@@ -16,7 +16,8 @@
 </head>
 <body class="bg-slate-900 text-white min-h-screen flex">
 
-  <!-- Sidebar gauche -->
+
+  <!-- [Sidebar gauche] -->
   <aside class="w-64 bg-slate-800 p-6 flex flex-col justify-between">
     <div>
       <div class="mb-8">
@@ -42,24 +43,22 @@
 
   <!-- Zone centrale -->
   <main class="flex-1 flex flex-col">
-    <!-- Bandeau haut -->
+    <!-- [Tool Bar] -->
     <header class="bg-slate-800 p-4 flex justify-between items-center">
       <div class="w-1/2 h-6 bg-slate-700 rounded"></div>
       
-      <!-- Bouton connexion avec modale -->
+      <!-- [Bouton connexion avec modale] -->
       <div x-data="{ open: false }">
-        <button @click="open = true" class="flex items-center gap-2 btn btn-sm btn-outline btn-info">
-          <!-- SVG importé depuis ton dossier -->
-          Se connecter
-          <svg xmlns="http://www.w3.org/2000/svg" 
-                     viewBox="0 0 24 24" 
-                     class="w-5 h-5 fill-current text-cyan-400">
-                  <path d="m13 16 5-4-5-4v3H4v2h9z"/>
-                  <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"/>
-                </svg>
+        <button @click="open = true" class="flex items-center gap-2 btn btn-sm btn-outline btn-info">Se connecter
+          <svg  xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                class="w-5 h-5 fill-current text-cyan-400">
+            <path d="m13 16 5-4-5-4v3H4v2h9z"/>
+            <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"/>
+          </svg>
         </button>
 
-        <!-- Modale DaisyUI -->
+        <!-- [Modale DaisyUI -->
         <div x-show="open" class="modal modal-open">
           <div class="modal-box bg-slate-800 text-white">
             <h3 class="font-bold text-lg mb-4">Connexion</h3>
@@ -85,7 +84,7 @@
       </div>
     </header>
 
-    <!-- Viewer -->
+    <!-- [Zone viewer] -->
     <div class="flex-1 flex">
       <div class="flex-1 flex items-center justify-center bg-black">
         <img src="https://via.placeholder.com/600x600" alt="CT Viewer" class="max-h-full max-w-full" />
@@ -94,9 +93,32 @@
         <div>
           <img src="https://via.placeholder.com/250x250" alt="Secondary View" class="rounded-lg mb-4" />
         </div>
+        
         <div class="bg-slate-700 p-4 rounded-lg mb-4">
           <button class="btn btn-primary w-full">RUN SCRIPT</button>
         </div>
+
+        <!-- [Menu drawer] -->
+        <div class="drawer drawer-end">
+          <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+          <div class="drawer-content">
+            <label for="my-drawer" class="btn btn-primary">Détails</label>
+          </div> 
+        
+          <div class="drawer-side">
+            <label for="my-drawer" class="drawer-overlay"></label>
+            <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+              <li><a>Item 1</a></li>
+              <li><a>Item 2</a></li>
+              <li><a>Item 3</a></li>
+              <li>
+                <!-- Bouton pour minimiser (fermer) -->
+                <label for="my-drawer" class="btn">Fermer</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+                
         <div class="bg-slate-700 rounded-lg p-4 text-xs space-y-1">
           <p><strong>Task Report</strong></p>
           <p>Tasks needing attention: 3</p>
