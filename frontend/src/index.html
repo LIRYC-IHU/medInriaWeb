@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Liryc - Viewer</title>
 
@@ -13,20 +13,44 @@
 
   <!-- AlpineJS -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-</head>
-<body class="bg-slate-900 text-white min-h-screen flex">
 
+</head>
+<body class="h-screen bg-slate-900 text-white flex overflow-hidden">
 
   <!-- [Sidebar gauche] -->
-  <aside class="w-64 bg-slate-800 p-6 flex flex-col justify-between">
-    <div>
+  <aside class="w-64 bg-slate-800 p-6 flex flex-col h-full">
+    <div class="flex-1 overflow-y-auto">
       <div class="mb-8">
-        <h1 class="text-3xl font-bold text-cyan-400">liryc</h1>
-        <p class="text-sm text-slate-400">L’institut des maladies du rythme cardiaque</p>
+        <h1 class="text-5xl font-bold text-cyan-400 flex items-center gap-3">
+          <!-- icone Lyric ou plli à remplacer ici -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 217.061 217.061" class="w-20 h-20 fill-current text-cyan-400">
+            <path d="M182.198,205.491c-6.62,7.785-17.241,11.569-32.467,11.569c-0.002,0-0.005,0-0.008,0c-6.335-0.001-13.6-0.681-21.592-2.021
+            c-66.912-11.219-70.308-34.4-70.308-71.295c0-27.397,17.425-37.19,28.179-40.625c-6.74-6.68-16.894-19.259-19.569-36.382
+            c-3.199-20.477,8.116-32.872,13.94-37.769l-5.496-8.878c-0.938-1.516-0.761-3.469,0.436-4.79l7.752-8.562
+            c0.87-0.962,2.155-1.441,3.44-1.287c1.288,0.154,2.421,0.923,3.04,2.063l6.927,12.752L99.3,19.63L97.803,6.452
+            c-0.128-1.132,0.232-2.266,0.991-3.116S100.638,2,101.777,2h11.605c2.187,0,3.968,1.756,4,3.943l0.132,9.239l3.766-0.128
+            l1.706-11.634c0.311-2.116,2.239-3.613,4.358-3.399l9.938,1c2.168,0.218,3.763,2.132,3.586,4.305l-1.298,15.946l8.303,10.167
+            c0.696,0.853,1.01,1.955,0.868,3.046c-0.142,1.091-0.728,2.076-1.619,2.723c-0.179,0.13-17.976,13.117-23.929,24.322
+            c-3.547,6.678-3.332,13.618-1.286,17.021c0.542,0.902,1.181,1.463,1.665,1.463l0.125-0.01c0.736-0.458,1.81-3.803,2.521-6.017
+            c1.522-4.744,3.418-10.647,7.926-16.11c7.304-8.849,19.067-15.523,27.363-15.523c2.592,0,4.786,0.629,6.521,1.868
+            c6.455,4.61,7.282,19.607,7.381,24.094c0.042,1.889-1.244,3.55-3.083,3.982l-12.937,3.044c-1.98,0.466-5.396,1.528-6.012,3.4
+            c-0.384,1.167-0.434,4.876,7.385,14.091c10.742,12.661,20.844,26.847,26.392,60.924
+            C189.802,170.018,193.427,192.288,182.198,205.491z M69.428,97.372c-0.119-0.208-11.955-20.898-13.186-33.036
+            c-1.112-10.959,3.209-16.138,3.356-16.312c0.83-0.913,1.192-2.157,0.981-3.373s-0.97-2.266-2.059-2.847
+            c-0.479-0.256-4.831-2.5-9.803-2.5c-3.324,0-6.288,1.035-8.571,2.992c-5.669,4.859-4.685,23.784-3.35,36.148
+            c-3.29,3.288-7.141,11.399-9.249,30.762c-3.204,29.435,14.911,49.486,15.684,50.325c0.775,0.841,1.849,1.291,2.943,1.291
+            c0.014,0,0.028,0,0.042,0c2.198-0.013,3.977-1.799,3.977-4c0-0.271-0.027-0.535-0.078-0.79c-0.229-2.515-1.404-17.81,2.393-31.84
+            c3.869-14.3,15.376-21.317,15.48-21.379C69.879,101.702,70.522,99.274,69.428,97.372z"/>
+          </svg>
+          <span class="text-2xl">Girder Viewer</span>
+        </h1>
+        <p class="text-sm text-slate-400 mt-1">By Liryc - L’institut des maladies du rythme cardiaque</p>
       </div>
+
       <div class="mb-6">
         <button class="btn btn-sm w-full btn-outline btn-info">Data Source</button>
       </div>
+
       <div class="bg-slate-700 rounded-lg p-4 text-xs space-y-1">
         <p><strong>ID:</strong> L181-478-332</p>
         <p><strong>Name:</strong> ANON133</p>
@@ -36,30 +60,30 @@
         <p><strong>Images:</strong> 50</p>
       </div>
     </div>
-    <div>
+
+    <div class="mt-auto">
       <input type="text" placeholder="Quick Search" class="input input-bordered w-full input-sm" />
     </div>
   </aside>
 
   <!-- Zone centrale -->
-  <main class="flex-1 flex flex-col">
+  <main class="flex-1 flex flex-col h-full overflow-hidden">
     <!-- [Tool Bar] -->
     <header class="bg-slate-800 p-4 flex justify-between items-center">
       <div class="w-1/2 h-6 bg-slate-700 rounded"></div>
-      
+
       <!-- [Bouton connexion avec modale] -->
       <div x-data="{ open: false }">
-        <button @click="open = true" class="flex items-center gap-2 btn btn-sm btn-outline btn-info">Se connecter
-          <svg  xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 24 24" 
-                class="w-5 h-5 fill-current text-cyan-400">
+        <button @click="open = true" class="flex items-center gap-2 btn btn-sm btn-outline btn-info">
+          Se connecter
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current text-cyan-400">
             <path d="m13 16 5-4-5-4v3H4v2h9z"/>
             <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"/>
           </svg>
         </button>
 
-        <!-- [Modale DaisyUI -->
-        <div x-show="open" class="modal modal-open">
+        <!-- Modal DaisyUI gérée par Alpine -->
+        <div :class="open ? 'modal modal-open' : 'modal'" x-show="open" x-cloak>
           <div class="modal-box bg-slate-800 text-white">
             <h3 class="font-bold text-lg mb-4">Connexion</h3>
             <form class="space-y-4">
@@ -67,14 +91,11 @@
               <input type="password" placeholder="Mot de passe" class="input input-bordered w-full" />
               <button class="btn btn-primary w-full flex items-center justify-center gap-2">
                 <span>Se connecter</span>
-                <svg xmlns="http://www.w3.org/2000/svg" 
-                     viewBox="0 0 24 24" 
-                     class="w-5 h-5 fill-current text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current text-white">
                   <path d="m13 16 5-4-5-4v3H4v2h9z"/>
                   <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"/>
                 </svg>
               </button>
-              
             </form>
             <div class="modal-action">
               <button @click="open = false" class="btn">Fermer</button>
@@ -84,16 +105,17 @@
       </div>
     </header>
 
-    <!-- [Zone viewer] -->
-    <div class="flex-1 flex">
-      <div class="flex-1 flex items-center justify-center bg-black">
-        <img src="https://via.placeholder.com/600x600" alt="CT Viewer" class="max-h-full max-w-full" />
+    <!-- [Zone viewer] à coder pour le layout -->
+    <div class="flex-1 flex overflow-hidden">
+      <div class="flex-1 flex items-center justify-center bg-black overflow-hidden">
+        <img src="https://via.placeholder.com/1200x1200" alt="CT Viewer" class="w-full h-full object-contain" />
       </div>
-      <aside class="w-80 bg-slate-800 p-4 flex flex-col justify-between">
+
+      <!-- [Sidebar droite] -->
+      <aside class="w-80 bg-slate-800 p-4 flex flex-col justify-between h-full overflow-y-auto">
         <div>
-          <img src="https://via.placeholder.com/250x250" alt="Secondary View" class="rounded-lg mb-4" />
+          <img src="https://via.placeholder.com/250x250" alt="Secondary View" class="rounded-lg mb-4 w-full object-contain" />
         </div>
-        
         <div class="bg-slate-700 p-4 rounded-lg mb-4">
           <button class="btn btn-primary w-full">RUN SCRIPT</button>
         </div>
@@ -103,22 +125,19 @@
           <input id="my-drawer" type="checkbox" class="drawer-toggle" />
           <div class="drawer-content">
             <label for="my-drawer" class="btn btn-primary">Détails</label>
-          </div> 
-        
+          </div>
           <div class="drawer-side">
             <label for="my-drawer" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
               <li><a>Item 1</a></li>
               <li><a>Item 2</a></li>
               <li><a>Item 3</a></li>
-              <li>
-                <!-- Bouton pour minimiser (fermer) -->
-                <label for="my-drawer" class="btn">Fermer</label>
-              </li>
+              <li><label for="my-drawer" class="btn">Fermer</label></li>
             </ul>
           </div>
         </div>
-                
+
+        <!-- [Bloc Task repot] à déterminer ou le placer -->
         <div class="bg-slate-700 rounded-lg p-4 text-xs space-y-1">
           <p><strong>Task Report</strong></p>
           <p>Tasks needing attention: 3</p>
