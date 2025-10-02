@@ -159,54 +159,49 @@
           </svg>
         </button>
 
-<!-- Modal DaisyUI gérée par Alpine -->
-<div :class="open ? 'modal modal-open' : 'modal'" x-show="open" x-cloak>
-  <div class="modal-box bg-slate-800 text-white">
+        <!-- Modal DaisyUI gérée par Alpine -->
+        <div :class="open ? 'modal modal-open' : 'modal'" x-show="open" x-cloak>
+          <div class="modal-box bg-slate-800 text-white">
 
-    <fieldset class="fieldset bg-slate-700 border-slate-600 rounded-box w-full border p-4">
-      <legend class="fieldset-legend font-bold text-cyan-400">Connexion</legend>
+            <fieldset class="fieldset bg-slate-700 border-slate-600 rounded-box w-full border p-4">
+              <legend class="fieldset-legend font-bold text-cyan-400">Connexion</legend>
 
-      <!-- Identifiant -->
-      <label class="label text-slate-300">Identifiant</label>
-      <input
-        type="text"
-        class="input input-bordered w-full bg-slate-900 border-slate-600 text-white"
-        placeholder="Votre identifiant"
-      />
+              <label class="label text-slate-300">Identifiant</label>
+              <input type="text" class="input input-bordered w-full bg-slate-900 border-slate-600 text-white" placeholder="Votre identifiant" />
 
-      <!-- Mot de passe -->
-      <label class="label text-slate-300 mt-2">Mot de passe</label>
-      <input
-        type="password"
-        class="input input-bordered w-full bg-slate-900 border-slate-600 text-white"
-        placeholder="Votre mot de passe"
-      />
+              <label class="label text-slate-300 mt-2">Mot de passe</label>
+              <input type="password" class="input input-bordered w-full bg-slate-900 border-slate-600 text-white" placeholder="Votre mot de passe" />
 
-      <!-- Se souvenir de moi -->
-      <div class="flex items-center justify-between mt-3">
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" class="toggle toggle-info" />
-          <span class="text-sm text-slate-300">Se souvenir de moi</span>
-        </label>
-        <a href="#" class="text-sm text-cyan-400 hover:underline">Mot de passe oublié ?</a>
-      </div>
+              <div class="flex items-center justify-between mt-3">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" class="toggle toggle-info" />
+                  <span class="text-sm text-slate-300">Se souvenir de moi</span>
+                </label>
+                <a href="#" class="text-sm text-cyan-400 hover:underline">Mot de passe oublié ?</a>
+              </div>
 
-      <!-- Bouton de connexion -->
-      <button class="btn btn-accent w-full mt-4 flex items-center justify-center gap-2">
-        <span>Se connecter</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current text-white">
-          <path d="m13 16 5-4-5-4v3H4v2h9z" />
-          <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z" />
-        </svg>
-      </button>
-    </fieldset>
+              <button class="btn btn-accent btn-outline w-full mt-4 flex items-center justify-center gap-2">
+                <span>Se connecter</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 fill-current text-white">
+                  <path d="m13 16 5-4-5-4v3H4v2h9z" />
+                  <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z" />
+                </svg>
+              </button>
+            </fieldset>
 
-    <!-- Bouton de fermeture -->
-    <div class="modal-action">
-      <button @click="open = false" class="btn">Fermer</button>
-    </div>
-  </div>
-</div>
+            <div class="modal-action flex justify-between items-center">
+              <!-- Bouton connexion via gitlab ou compte au choix - à retirer si useless -->
+              <button class="btn btn-outline btn-warning flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22.65 9.36l-1.49-4.57a.64.64 0 00-1.22 0l-1.43 4.58H5.49L4.06 4.79a.64.64 0 00-1.22 0L1.35 9.36a1.45 1.45 0 00.52 1.63l9.61 7.03a1.47 1.47 0 001.7 0l9.61-7.03a1.45 1.45 0 00.52-1.63z"/>
+                </svg>
+                Se connecter avec GitLab
+              </button>
+              <!-- -->
+              <button @click="open = false" class="btn">Fermer</button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
