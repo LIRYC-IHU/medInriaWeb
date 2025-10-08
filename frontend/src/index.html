@@ -148,108 +148,109 @@
     <!-- [Bandeau d'outils principal] -->
     <div class="flex items-center gap-3 bg-slate-700 rounded-lg px-3 py-2 border border-slate-600 shadow-lg">
        <!-- Paramètres des Keybinds (pour le moment je n'ai implanté que des simples - Fabien) -->
-       <div 
-       x-data="{ 
-         open: false,
-         selected: 'deplacer',
+      <div 
+        x-data="{ 
+        open: false,
+        selected: 'deplacer',
      
          // Liste des icônes disponibles
-         icons: {
-           deplacer: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512'><title>Déplacer</title><path d='M79.2,211.44h0c15.52-8.82,34.91-2.28,43.31,13.68l41.38,84.41a7,7,0,0,0,8.93,3.43h0a7,7,0,0,0,4.41-6.52V72c0-13.91,12.85-24,26.77-24s26,10.09,26,24V228.64A11.24,11.24,0,0,0,240.79,240,11,11,0,0,0,252,229V24c0-13.91,10.94-24,24.86-24S302,10.09,302,24V228.64A11.24,11.24,0,0,0,312.79,240,11,11,0,0,0,324,229V56c0-13.91,12.08-24,26-24s26,11.09,26,25V244.64A11.24,11.24,0,0,0,386.79,256,11,11,0,0,0,398,245V120c0-13.91,11.08-24,25-24s25.12,10.22,25,24V336c0,117.41-72,176-160,176H272c-88,0-115.71-39.6-136-88L67.33,255C60.67,237,63.69,220.25,79.2,211.44Z'/></svg>`,
+        icons: {
+          deplacer: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512'><title>Déplacer</title><path d='M79.2,211.44h0c15.52-8.82,34.91-2.28,43.31,13.68l41.38,84.41a7,7,0,0,0,8.93,3.43h0a7,7,0,0,0,4.41-6.52V72c0-13.91,12.85-24,26.77-24s26,10.09,26,24V228.64A11.24,11.24,0,0,0,240.79,240,11,11,0,0,0,252,229V24c0-13.91,10.94-24,24.86-24S302,10.09,302,24V228.64A11.24,11.24,0,0,0,312.79,240,11,11,0,0,0,324,229V56c0-13.91,12.08-24,26-24s26,11.09,26,25V244.64A11.24,11.24,0,0,0,386.79,256,11,11,0,0,0,398,245V120c0-13.91,11.08-24,25-24s25.12,10.22,25,24V336c0,117.41-72,176-160,176H272c-88,0-115.71-39.6-136-88L67.33,255C60.67,237,63.69,220.25,79.2,211.44Z'/></svg>`,
            
-           defiler: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 50 50'><title>Défiler</title><path d='M24.349,0L0.914,13.309l23.436,13.39l23.435-13.39L24.349,0z M8.996,13.319L24.349,4.6l15.354,8.719l-15.354,8.772L8.996,13.319z'/><polygon points='24.349,29.002 8.548,19.974 0.914,24.309 24.349,37.698 47.784,24.309 40.151,19.974'/><polygon points='24.349,40.002 8.548,30.974 0.914,35.309 24.349,48.698 47.784,35.309 40.151,30.974'/></svg>`,
+          defiler: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 50 50'><title>Défiler</title><path d='M24.349,0L0.914,13.309l23.436,13.39l23.435-13.39L24.349,0z M8.996,13.319L24.349,4.6l15.354,8.719l-15.354,8.772L8.996,13.319z'/><polygon points='24.349,29.002 8.548,19.974 0.914,24.309 24.349,37.698 47.784,24.309 40.151,19.974'/><polygon points='24.349,40.002 8.548,30.974 0.914,35.309 24.349,48.698 47.784,35.309 40.151,30.974'/></svg>`,
            
-           zoomer: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512'><title>Zoomer</title><path d='M497.938,430.063l-126.914-126.91C389.287,272.988,400,237.762,400,200C400,89.719,310.281,0,200,0C89.719,0,0,89.719,0,200c0,110.281,89.719,200,200,200c37.762,0,72.984-10.711,103.148-28.973l126.914,126.91C439.438,507.313,451.719,512,464,512c12.281,0,24.563-4.688,33.938-14.063C516.688,479.195,516.688,448.805,497.938,430.063z M64,200c0-74.992,61.016-136,136-136s136,61.008,136,136s-61.016,136-136,136S64,274.992,64,200z'/></svg>`,
+          zoomer: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512'><title>Zoomer</title><path d='M497.938,430.063l-126.914-126.91C389.287,272.988,400,237.762,400,200C400,89.719,310.281,0,200,0C89.719,0,0,89.719,0,200c0,110.281,89.719,200,200,200c37.762,0,72.984-10.711,103.148-28.973l126.914,126.91C439.438,507.313,451.719,512,464,512c12.281,0,24.563-4.688,33.938-14.063C516.688,479.195,516.688,448.805,497.938,430.063z M64,200c0-74.992,61.016-136,136-136s136,61.008,136,136s-61.016,136-136,136S64,274.992,64,200z'/></svg>`,
            
-           contrast: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'><title>Contraste</title><circle style='fill: rgb(44, 169, 188);' cx='256.003' cy='256.003' r='173.835'/><path style='fill:#FFFFFF;' d='M256,116.958c76.667,0,139.042,62.374,139.042,139.042S332.669,395.043,256,395.043L256,116.958L256,116.958z'/><g><path style='fill:rgb(44, 169, 188);' d='M256,57.536c-4.804,0-8.698-3.893-8.698-8.698V8.698C247.302,3.893,251.196,0,256,0s8.698,3.893,8.698,8.698v40.14C264.698,53.643,260.804,57.536,256,57.536z'/><path style='fill:rgb(44, 169, 188);' d='M402.486,118.213c-2.226,0-4.452-0.849-6.15-2.547c-3.397-3.398-3.397-8.905,0-12.301l28.384-28.384c3.397-3.396,8.905-3.396,12.3,0c3.397,3.398,3.397,8.905,0,12.301l-28.384,28.384C406.938,117.363,404.711,118.213,402.486,118.213z'/><path style='fill:rgb(44, 169, 188);' d='M503.301,264.698h-40.14c-4.804,0-8.698-3.893-8.698-8.698c0-4.805,3.894-8.698,8.698-8.698h40.14c4.804,0,8.698,3.893,8.698,8.698C511.999,260.804,508.105,264.698,503.301,264.698z'/><path style='fill:rgb(44, 169, 188);' d='M430.869,439.567c-2.226,0-4.452-0.849-6.15-2.547l-28.384-28.384c-3.397-3.398-3.397-8.905,0-12.301c3.397-3.396,8.905-3.396,12.3,0l28.384,28.384c3.397,3.398,3.397,8.905,0,12.301C435.32,438.717,433.095,439.567,430.869,439.567z'/><path style='fill:rgb(44, 169, 188);' d='M256,512c-4.804,0-8.698-3.893-8.698-8.698v-40.14c0-4.805,3.894-8.698,8.698-8.698s8.698,3.893,8.698,8.698v40.14C264.698,508.106,260.804,512,256,512z'/><path style='fill:rgb(44, 169, 188);' d='M81.132,439.567c-2.226,0-4.452-0.849-6.15-2.547c-3.397-3.398-3.397-8.905,0-12.301l28.384-28.384c3.397-3.396,8.905-3.396,12.3,0c3.397,3.398,3.397,8.905,0,12.301L87.282,437.02C85.584,438.717,83.358,439.567,81.132,439.567z'/><path style='fill:rgb(44, 169, 188);' d='M48.839,264.698H8.699c-4.804,0-8.698-3.893-8.698-8.698c0-4.805,3.894-8.698,8.698-8.698h40.14c4.804,0,8.698,3.893,8.698,8.698C57.537,260.804,53.642,264.698,48.839,264.698z'/><path style='fill:rgb(44, 169, 188);' d='M109.516,118.213c-2.226,0-4.452-0.849-6.15-2.547L74.982,87.283c-3.397-3.398-3.397-8.905,0-12.301c3.397-3.396,8.905-3.396,12.3,0l28.384,28.384c3.397,3.398,3.397,8.905,0,12.301C113.968,117.363,111.741,118.213,109.516,118.213z'/></g></svg>`
-         },
+          contrast: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'><title>Contraste</title><circle style='fill: rgb(44, 169, 188);' cx='256.003' cy='256.003' r='173.835'/><path style='fill:#FFFFFF;' d='M256,116.958c76.667,0,139.042,62.374,139.042,139.042S332.669,395.043,256,395.043L256,116.958L256,116.958z'/><g><path style='fill:rgb(44, 169, 188);' d='M256,57.536c-4.804,0-8.698-3.893-8.698-8.698V8.698C247.302,3.893,251.196,0,256,0s8.698,3.893,8.698,8.698v40.14C264.698,53.643,260.804,57.536,256,57.536z'/><path style='fill:rgb(44, 169, 188);' d='M402.486,118.213c-2.226,0-4.452-0.849-6.15-2.547c-3.397-3.398-3.397-8.905,0-12.301l28.384-28.384c3.397-3.396,8.905-3.396,12.3,0c3.397,3.398,3.397,8.905,0,12.301l-28.384,28.384C406.938,117.363,404.711,118.213,402.486,118.213z'/><path style='fill:rgb(44, 169, 188);' d='M503.301,264.698h-40.14c-4.804,0-8.698-3.893-8.698-8.698c0-4.805,3.894-8.698,8.698-8.698h40.14c4.804,0,8.698,3.893,8.698,8.698C511.999,260.804,508.105,264.698,503.301,264.698z'/><path style='fill:rgb(44, 169, 188);' d='M430.869,439.567c-2.226,0-4.452-0.849-6.15-2.547l-28.384-28.384c-3.397-3.398-3.397-8.905,0-12.301c3.397-3.396,8.905-3.396,12.3,0l28.384,28.384c3.397,3.398,3.397,8.905,0,12.301C435.32,438.717,433.095,439.567,430.869,439.567z'/><path style='fill:rgb(44, 169, 188);' d='M256,512c-4.804,0-8.698-3.893-8.698-8.698v-40.14c0-4.805,3.894-8.698,8.698-8.698s8.698,3.893,8.698,8.698v40.14C264.698,508.106,260.804,512,256,512z'/><path style='fill:rgb(44, 169, 188);' d='M81.132,439.567c-2.226,0-4.452-0.849-6.15-2.547c-3.397-3.398-3.397-8.905,0-12.301l28.384-28.384c3.397-3.396,8.905-3.396,12.3,0c3.397,3.398,3.397,8.905,0,12.301L87.282,437.02C85.584,438.717,83.358,439.567,81.132,439.567z'/><path style='fill:rgb(44, 169, 188);' d='M48.839,264.698H8.699c-4.804,0-8.698-3.893-8.698-8.698c0-4.805,3.894-8.698,8.698-8.698h40.14c4.804,0,8.698,3.893,8.698,8.698C57.537,260.804,53.642,264.698,48.839,264.698z'/><path style='fill:rgb(44, 169, 188);' d='M109.516,118.213c-2.226,0-4.452-0.849-6.15-2.547L74.982,87.283c-3.397-3.398-3.397-8.905,0-12.301c3.397-3.396,8.905-3.396,12.3,0l28.384,28.384c3.397,3.398,3.397,8.905,0,12.301C113.968,117.363,111.741,118.213,109.516,118.213z'/></g></svg>`
+        },
      
-         initKeybinds() {
-           const keyMap = {
+          initKeybinds() {
+          const keyMap = {
              H: 'deplacer',
              L: 'defiler',
              Z: 'zoomer',
              C: 'contrast'
-           };
+          };
      
-           window.addEventListener('keydown', (event) => {
-             const key = event.key.toUpperCase();
-             if (keyMap[key]) {
+          window.addEventListener('keydown', (event) => {
+            const key = event.key.toUpperCase();
+            if (keyMap[key]) {
                this.selected = keyMap[key];
                this.open = false;
-             }
-           });
-         }
-       }" 
-       x-init="initKeybinds()"
-       class="relative"
-     >
+            }
+          });
+        }
+        }" 
+        x-init="initKeybinds()"
+        class="relative"
+        >
      
-       <!-- Bouton principal -->
-       <button 
-         @click="open = !open" 
-         class="flex items-center gap-1 text-slate-200 hover:text-cyan-400 transition-colors"
-       >
-         <span x-html="icons[selected]"></span>
-       </button>
+        <!-- Bouton principal -->
+        <button 
+          @click="open = !open" 
+          class="flex items-center gap-1 text-slate-200 hover:text-cyan-400 transition-colors"
+        >
+          <span x-html="icons[selected]"></span>
+        </button>
+      
+        <!-- Menu déroulant -->
+        <div 
+          x-show="open"
+          @click.outside="open = false"
+          x-transition:enter="transition ease-out duration-150"
+          x-transition:enter-start="opacity-0 -translate-y-1"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-100"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-1"
+          class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-40 p-1 z-50 origin-top"
+          style="display: none;"
+        >
+
+        <!-- [1 : Naviguer] -->
+        <!-- Déplacer -->
+        <button @click="selected = 'deplacer'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
+          <div class="flex items-center gap-2">
+            <span x-html="icons.deplacer"></span>
+            <span class="text-xs text-slate-300">Déplacer</span>
+          </div>
+          <span class="text-slate-400 text-xs">(H)</span>
+        </button>
      
-       <!-- Menu déroulant -->
-       <div 
-         x-show="open"
-         @click.outside="open = false"
-         x-transition:enter="transition ease-out duration-150"
-         x-transition:enter-start="opacity-0 -translate-y-1"
-         x-transition:enter-end="opacity-100 translate-y-0"
-         x-transition:leave="transition ease-in duration-100"
-         x-transition:leave-start="opacity-100 translate-y-0"
-         x-transition:leave-end="opacity-0 -translate-y-1"
-         class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-40 p-1 z-50 origin-top"
-         style="display: none;"
-       >
+        <!-- Défiler -->
+        <button @click="selected = 'defiler'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
+          <div class="flex items-center gap-2">
+            <span x-html="icons.defiler"></span>
+            <span class="text-xs text-slate-300">Défiler</span>
+          </div>
+          <span class="text-slate-400 text-xs">(L)</span>
+        </button>
      
-         <!-- Déplacer -->
-         <button @click="selected = 'deplacer'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
-           <div class="flex items-center gap-2">
-             <span x-html="icons.deplacer"></span>
-             <span class="text-xs text-slate-300">Déplacer</span>
-           </div>
-           <span class="text-slate-400 text-xs">(H)</span>
-         </button>
+        <!-- Zoomer -->
+        <button @click="selected = 'zoomer'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
+          <div class="flex items-center gap-2">
+            <span x-html="icons.zoomer"></span>
+            <span class="text-xs text-slate-300">Zoomer</span>
+          </div>
+          <span class="text-slate-400 text-xs">(Z)</span>
+        </button>
      
-         <!-- Défiler -->
-         <button @click="selected = 'defiler'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
-           <div class="flex items-center gap-2">
-             <span x-html="icons.defiler"></span>
-             <span class="text-xs text-slate-300">Défiler</span>
-           </div>
-           <span class="text-slate-400 text-xs">(L)</span>
-         </button>
+        <!-- Contraste -->
+        <button @click="selected = 'contrast'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
+          <div class="flex items-center gap-2">
+            <span x-html="icons.contrast"></span>
+            <span class="text-xs text-slate-300">Contraste</span>
+          </div>
+          <span class="text-slate-400 text-xs">(C)</span>
+        </button>
      
-         <!-- Zoomer -->
-         <button @click="selected = 'zoomer'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
-           <div class="flex items-center gap-2">
-             <span x-html="icons.zoomer"></span>
-             <span class="text-xs text-slate-300">Zoomer</span>
-           </div>
-           <span class="text-slate-400 text-xs">(Z)</span>
-         </button>
-     
-         <!-- Contraste -->
-         <button @click="selected = 'contrast'; open = false" class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">
-           <div class="flex items-center gap-2">
-             <span x-html="icons.contrast"></span>
-             <span class="text-xs text-slate-300">Contraste</span>
-           </div>
-           <span class="text-slate-400 text-xs">(C)</span>
-         </button>
-     
-       </div>
-     </div>
+      </div>
+    </div>
      
     
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
     
-      <!-- [2 : Tracés / Dessin] -->
+      <!-- [2 : Affiner ] -->
       <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
           🧩 <span class="text-xs text-slate-400">(D)</span>
