@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Liryc - Viewer</title>
 
+  <link rel="icon" type="image/svg+xml" href="./svg/anatomic-heart-svgrepo-com.svg" />
+
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -146,9 +149,222 @@
   <!-- Zone centrale -->
   <main class="flex-1 flex flex-col h-full overflow-hidden">
     <!-- [Tool Bar] -->
-    <header class="bg-slate-800 p-4 flex justify-between items-center">
-      <div class="w-1/2 h-6 bg-slate-700 rounded"></div>
+    <header class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
+      <!-- [Bandeau d'outils principal] -->
+      <div class="flex items-center gap-3 bg-slate-700 rounded-lg px-3 py-2 border border-slate-600 shadow-lg">
+  
+        <div 
+        x-data="{ 
+          open: false, 
+          selected: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'><title>Déplacer</title><path d='M79.2,211.44h0c15.52-8.82,34.91-2.28,43.31,13.68l41.38,84.41a7,7,0,0,0,8.93,3.43h0a7,7,0,0,0,4.41-6.52V72c0-13.91,12.85-24,26.77-24s26,10.09,26,24V228.64A11.24,11.24,0,0,0,240.79,240,11,11,0,0,0,252,229V24c0-13.91,10.94-24,24.86-24S302,10.09,302,24V228.64A11.24,11.24,0,0,0,312.79,240,11,11,0,0,0,324,229V56c0-13.91,12.08-24,26-24s26,11.09,26,25V244.64A11.24,11.24,0,0,0,386.79,256,11,11,0,0,0,398,245V120c0-13.91,11.08-24,25-24s25.12,10.22,25,24V336c0,117.41-72,176-160,176H272c-88,0-115.71-39.6-136-88L67.33,255C60.67,237,63.69,220.25,79.2,211.44Z'/></svg>` 
+        }" 
+        class="relative"
+      >
+      
+        <!-- [Bouton principal : affiche l’outil sélectionné] -->
+        <button 
+          @click="open = !open" 
+          class="flex items-center gap-1 text-slate-200 hover:text-cyan-400 transition-colors"
+        >
+          <span x-html="selected"></span>
+        </button>
+      
+        <!-- [Paramètres animations du menu déroulant] -->
+        <div 
+          x-show="open"
+          @click.outside="open = false"
+          x-transition:enter="transition ease-out duration-150"
+          x-transition:enter-start="opacity-0 -translate-y-1"
+          x-transition:enter-end="opacity-100 translate-y-0"
+          x-transition:leave="transition ease-in duration-100"
+          x-transition:leave-start="opacity-100 translate-y-0"
+          x-transition:leave-end="opacity-0 -translate-y-1"
+          class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-40 p-1 z-50 origin-top"
+          style="display: none;"
+        >
+      
+          <!-- Drag -->
+          <button 
+            @click="selected = `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'><title>Déplacer</title><path d='M79.2,211.44h0c15.52-8.82,34.91-2.28,43.31,13.68l41.38,84.41a7,7,0,0,0,8.93,3.43h0a7,7,0,0,0,4.41-6.52V72c0-13.91,12.85-24,26.77-24s26,10.09,26,24V228.64A11.24,11.24,0,0,0,240.79,240,11,11,0,0,0,252,229V24c0-13.91,10.94-24,24.86-24S302,10.09,302,24V228.64A11.24,11.24,0,0,0,312.79,240,11,11,0,0,0,324,229V56c0-13.91,12.08-24,26-24s26,11.09,26,25V244.64A11.24,11.24,0,0,0,386.79,256,11,11,0,0,0,398,245V120c0-13.91,11.08-24,25-24s25.12,10.22,25,24V336c0,117.41-72,176-160,176H272c-88,0-115.71-39.6-136-88L67.33,255C60.67,237,63.69,220.25,79.2,211.44Z'/></svg>`; open = false" 
+            class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
+          >
+            <div class="flex items-center gap-2">
+              <svg fill="#FFFFFF" width="2rem" height="2rem" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <title>Déplacer</title>
+                <path d="M79.2,211.44h0c15.52-8.82,34.91-2.28,43.31,13.68l41.38,84.41a7,7,0,0,0,8.93,3.43h0a7,7,0,0,0,4.41-6.52V72c0-13.91,12.85-24,26.77-24s26,10.09,26,24V228.64A11.24,11.24,0,0,0,240.79,240,11,11,0,0,0,252,229V24c0-13.91,10.94-24,24.86-24S302,10.09,302,24V228.64A11.24,11.24,0,0,0,312.79,240,11,11,0,0,0,324,229V56c0-13.91,12.08-24,26-24s26,11.09,26,25V244.64A11.24,11.24,0,0,0,386.79,256,11,11,0,0,0,398,245V120c0-13.91,11.08-24,25-24s25.12,10.22,25,24V336c0,117.41-72,176-160,176H272c-88,0-115.71-39.6-136-88L67.33,255C60.67,237,63.69,220.25,79.2,211.44Z"/>
+              </svg>
+              <span class="text-xs text-slate-300">Déplacer</span>
+            </div>
+            <span class="text-slate-400 text-xs">(H)</span>
+          </button>
+      
+          <!-- Layer -->
+          <button 
+          @click="selected = `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'><title>Défiler</title><path d='M24.349,0L0.914,13.309l23.436,13.39l23.435-13.39L24.349,0z M8.996,13.319L24.349,4.6l15.354,8.719l-15.354,8.772L8.996,13.319z'/><polygon points='24.349,29.002 8.548,19.974 0.914,24.309 24.349,37.698 47.784,24.309 40.151,19.974'/><polygon points='24.349,40.002 8.548,30.974 0.914,35.309 24.349,48.698 47.784,35.309 40.151,30.974'/></svg>`; open = false" 
+          class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
+        >
+          <div class="flex items-center gap-2">
+            <svg fill="#FFFFFF" width="2rem" height="2rem" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+              <title>Défiler</title>
+              <path d="M24.349,0L0.914,13.309l23.436,13.39l23.435-13.39L24.349,0z M8.996,13.319L24.349,4.6l15.354,8.719l-15.354,8.772
+              L8.996,13.319z"/>
+              <polygon points="24.349,29.002 8.548,19.974 0.914,24.309 24.349,37.698 47.784,24.309 40.151,19.974"/>
+              <polygon points="24.349,40.002 8.548,30.974 0.914,35.309 24.349,48.698 47.784,35.309 40.151,30.974"/>
+            </svg>
+            <span class="text-xs text-slate-300">Défiler</span>
+          </div>
+          <span class="text-slate-400 text-xs">(L)</span>
+        </button>
 
+              <!-- Zoom -->
+        <button 
+        @click="selected = `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'><title>Zoomer</title><path d='M497.938,430.063l-126.914-126.91C389.287,272.988,400,237.762,400,200C400,89.719,310.281,0,200,0 C89.719,0,0,89.719,0,200c0,110.281,89.719,200,200,200c37.762,0,72.984-10.711,103.148-28.973l126.914,126.91 C439.438,507.313,451.719,512,464,512c12.281,0,24.563-4.688,33.938-14.063C516.688,479.195,516.688,448.805,497.938,430.063z M64,200c0-74.992,61.016-136,136-136s136,61.008,136,136s-61.016,136-136,136S64,274.992,64,200z'/></svg>`; open = false" 
+        class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
+        >
+        <div class="flex items-center gap-2">
+          <svg fill="#FFFFFF" width="2rem" height="2rem" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <title>Zoomer</title>
+            <path d="M497.938,430.063l-126.914-126.91C389.287,272.988,400,237.762,400,200C400,89.719,310.281,0,200,0
+              C89.719,0,0,89.719,0,200c0,110.281,89.719,200,200,200c37.762,0,72.984-10.711,103.148-28.973l126.914,126.91
+              C439.438,507.313,451.719,512,464,512c12.281,0,24.563-4.688,33.938-14.063C516.688,479.195,516.688,448.805,497.938,430.063z
+              M64,200c0-74.992,61.016-136,136-136s136,61.008,136,136s-61.016,136-136,136S64,274.992,64,200z"/>
+          </svg>
+          <span class="text-xs text-slate-300">Zoomer</span>
+        </div>
+        <span class="text-slate-400 text-xs">(Z)</span>
+        </button>
+
+        </div>
+      </div>
+      
+        <div class="w-px h-6 bg-slate-600 mx-1"></div>
+      
+        <!-- [2 : Tracés / Dessin] -->
+        <div x-data="{ open: false }" class="relative">
+          <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
+            🧩 <span class="text-xs text-slate-400">(D)</span>
+          </button>
+          <div 
+            x-show="open" 
+            @click.outside="open = false" 
+            x-transition 
+            class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-44 p-1 z-50">
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Dessiner <span class="text-slate-400">(D)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Contour <span class="text-slate-400">(O)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Sélection libre <span class="text-slate-400">(L)</span></button>
+          </div>
+        </div>
+      
+        <div class="w-px h-6 bg-slate-600 mx-1"></div>
+      
+        <!-- [3 : Mesures] -->
+        <div x-data="{ open: false }" class="relative">
+          <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
+            🧩 <span class="text-xs text-slate-400">(M)</span>
+          </button>
+          <div 
+            x-show="open" 
+            @click.outside="open = false" 
+            x-transition 
+            class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-40 p-1 z-50">
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Mesurer <span class="text-slate-400">(M)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Angle <span class="text-slate-400">(A)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Rayon <span class="text-slate-400">(R)</span></button>
+          </div>
+        </div>
+      
+        <div class="w-px h-6 bg-slate-600 mx-1"></div>
+      
+        <!-- [4 : Annotation] -->
+        <div x-data="{ open: false }" class="relative">
+          <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
+            🧩 <span class="text-xs text-slate-400">(N)</span>
+          </button>
+          <div 
+            x-show="open" 
+            @click.outside="open = false" 
+            x-transition 
+            class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-44 p-1 z-50">
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Ajouter Note <span class="text-slate-400">(N)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Marqueur <span class="text-slate-400">(P)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Commentaire <span class="text-slate-400">(C)</span></button>
+          </div>
+        </div>
+      
+        <div class="w-px h-6 bg-slate-600 mx-1"></div>
+      
+        <!-- [5 : Transformation] -->
+        <div x-data="{ open: false }" class="relative">
+          <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
+            🧩 <span class="text-xs text-slate-400">(T)</span>
+          </button>
+          <div 
+            x-show="open" 
+            @click.outside="open = false" 
+            x-transition 
+            class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-44 p-1 z-50">
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Rotation <span class="text-slate-400">(T)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Miroir H <span class="text-slate-400">(H)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Miroir V <span class="text-slate-400">(V)</span></button>
+          </div>
+        </div>
+      
+        <div class="w-px h-6 bg-slate-600 mx-1"></div>
+      
+        <!-- [6 : Calques] -->
+        <div x-data="{ open: false }" class="relative">
+          <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
+            🧩 <span class="text-xs text-slate-400">(L)</span>
+          </button>
+          <div 
+            x-show="open" 
+            @click.outside="open = false" 
+            x-transition 
+            class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-44 p-1 z-50">
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Nouveau calque <span class="text-slate-400">(N)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Monter <span class="text-slate-400">(↑)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Descendre <span class="text-slate-400">(↓)</span></button>
+          </div>
+        </div>
+      
+        <div class="w-px h-6 bg-slate-600 mx-1"></div>
+      
+        <!-- [7 : Affichage] -->
+        <div x-data="{ open: false }" class="relative">
+          <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
+            🧩 <span class="text-xs text-slate-400">(V)</span>
+          </button>
+          <div 
+            x-show="open" 
+            @click.outside="open = false" 
+            x-transition 
+            class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-44 p-1 z-50">
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Vue Normale <span class="text-slate-400">(1)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Filtre <span class="text-slate-400">(F)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Contraste <span class="text-slate-400">(K)</span></button>
+          </div>
+        </div>
+      
+        <div class="w-px h-6 bg-slate-600 mx-1"></div>
+      
+        <!-- [8 : Export / Scripts] -->
+        <div x-data="{ open: false }" class="relative">
+          <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
+            🧩 <span class="text-xs text-slate-400">(E)</span>
+          </button>
+          <div 
+            x-show="open" 
+            @click.outside="open = false" 
+            x-transition 
+            class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-44 p-1 z-50">
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Exporter <span class="text-slate-400">(E)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Run Script <span class="text-slate-400">(S)</span></button>
+            <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Importer <span class="text-slate-400">(I)</span></button>
+          </div>
+        </div>
+      
+      </div>
+          
       <!-- [Bouton connexion avec modale] -->
       <div x-data="{ open: false }">
         <button @click="open = true" class="flex items-center text-lg gap-4 btn btn-sm btn-outline btn-info px-8">
