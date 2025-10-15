@@ -11,6 +11,17 @@
   <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" />
   <!-- AlpineJS -->
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    .cursor-hand { cursor: grab; }
+    .cursor-hand:active { cursor: grabbing; }
+    .cursor-scroll { cursor: all-scroll; }
+    .cursor-zoom { cursor: zoom-in; }
+    .cursor-contrast { cursor: cell; }
+    .cursor-text-tool { cursor: text; }
+    .cursor-draw { cursor: crosshair; }
+    .cursor-roi { cursor: crosshair; }
+    .cursor-target { cursor: crosshair; }
+  </style>
 </head>
 
 <body class="h-screen bg-slate-900 text-white flex overflow-hidden">
@@ -141,13 +152,8 @@
     </div>
   </aside>
 
-
 <!-- Zone centrale -->
-<main class="flex-1 flex flex-col h-full overflow-hidden">
-  <!-- [Tool Bar] -->
-  <header class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
-    <!-- [Bandeau d'outils principal] -->
-    <div class="flex items-center gap-3 bg-slate-700 rounded-lg px-3 py-2 border border-slate-600 shadow-lg"
+<main class="flex-1 flex flex-col h-full overflow-hidden"
   x-data="{
     // États d'ouverture des menus
     openNav: false,
@@ -158,6 +164,9 @@
     selectedNav: 'deplacer', // H / L
     selectedView: 'zoomer',  // Z / C
     selectedAnnot: 'texte',  // T / D / R / X
+
+    // NOUVELLE VARIABLE : quelle catégorie est active
+    activeCategory: 'nav', // 'nav', 'view', ou 'annot'
 
     // Icônes complètes
     icons: {
@@ -177,31 +186,82 @@
 
       cibler: `<svg fill='#FFFFFF' width='2rem' height='2rem' viewBox='-5 0 32 32' xmlns='http://www.w3.org/2000/svg'><path d='M21.56 15.16h-1.56c-0.44-4.2-3.76-7.56-7.96-7.96v-1.56c0-0.48-0.36-0.84-0.84-0.84s-0.84 0.36-0.84 0.84v1.56c-4.2 0.4-7.56 3.76-7.96 7.96h-1.56c-0.48 0-0.84 0.36-0.84 0.84s0.36 0.84 0.84 0.84h1.56c0.4 4.2 3.76 7.56 7.96 7.96v1.56c0 0.48 0.36 0.84 0.84 0.84s0.84-0.36 0.84-0.84v-1.56c4.2-0.4 7.56-3.76 7.96-7.96h1.56c0.48 0 0.84-0.36 0.84-0.84s-0.4-0.84-0.84-0.84zM16.8 16.84h1.48c-0.4 3.28-3 5.88-6.24 6.24v-1.48c0-0.48-0.36-0.84-0.84-0.84s-0.84 0.36-0.84 0.84v1.48c-3.28-0.4-5.88-3-6.24-6.24h1.48c0.48 0 0.84-0.36 0.84-0.84s-0.36-0.84-0.84-0.84h-1.48c0.4-3.28 3-5.88 6.24-6.24v1.48c0 0.48 0.36 0.84 0.84 0.84s0.84-0.36 0.84-0.84v-1.48c3.28 0.4 5.88 3 6.24 6.24h-1.48c-0.48 0-0.84 0.36-0.84 0.84s0.4 0.84 0.84 0.84z'/></svg>`
     },
-   
+
+    // --- Curseur dynamique --- 
+    getCursorClass() {
+      // Utiliser activeCategory pour décider quel curseur afficher
+      if (this.activeCategory === 'annot') {
+        if (this.selectedAnnot === 'texte') return 'cursor-text-tool';
+        if (this.selectedAnnot === 'trait') return 'cursor-draw';
+        if (this.selectedAnnot === 'roi') return 'cursor-roi';
+        if (this.selectedAnnot === 'cibler') return 'cursor-target';
+      }
+      
+      if (this.activeCategory === 'view') {
+        if (this.selectedView === 'zoomer') return 'cursor-zoom';
+        if (this.selectedView === 'contrast') return 'cursor-contrast';
+      }
+      
+      if (this.activeCategory === 'nav') {
+        if (this.selectedNav === 'deplacer') return 'cursor-hand';
+        if (this.selectedNav === 'defiler') return 'cursor-scroll';
+      }
+      
+      return 'cursor-default';
+    },
+  
     // --- Initialisation des raccourcis clavier ---
     initKeybinds() {
       window.addEventListener('keydown', (event) => {
         const key = event.key.toUpperCase();
-
+    
         // --- BOUTON 1 : Navigation ---
-        if (key === 'H') this.selectedNav = 'deplacer';
-        else if (key === 'L') this.selectedNav = 'defiler';
-
+        if (key === 'H') {
+          this.selectedNav = 'deplacer';
+          this.activeCategory = 'nav';
+        }
+        else if (key === 'L') {
+          this.selectedNav = 'defiler';
+          this.activeCategory = 'nav';
+        }
+    
         // --- BOUTON 2 : Vue ---
-        else if (key === 'Z') this.selectedView = 'zoomer';
-        else if (key === 'C') this.selectedView = 'contrast';
-
+        else if (key === 'Z') {
+          this.selectedView = 'zoomer';
+          this.activeCategory = 'view';
+        }
+        else if (key === 'C') {
+          this.selectedView = 'contrast';
+          this.activeCategory = 'view';
+        }
+    
         // --- BOUTON 3 : Annoter ---
-        else if (key === 'T') this.selectedAnnot = 'texte';
-        else if (key === 'D') this.selectedAnnot = 'trait';
-        else if (key === 'R') this.selectedAnnot = 'roi';
-        else if (key === 'X') this.selectedAnnot = 'cibler';
+        else if (key === 'T') {
+          this.selectedAnnot = 'texte';
+          this.activeCategory = 'annot';
+        }
+        else if (key === 'D') {
+          this.selectedAnnot = 'trait';
+          this.activeCategory = 'annot';
+        }
+        else if (key === 'R') {
+          this.selectedAnnot = 'roi';
+          this.activeCategory = 'annot';
+        }
+        else if (key === 'X') {
+          this.selectedAnnot = 'cibler';
+          this.activeCategory = 'annot';
+        }
       });
     }
   }"
   x-init="initKeybinds()"
-  class="flex items-center gap-4"
->   
+  >
+
+  <!-- [Tool Bar] -->
+  <header class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
+    <!-- [Bandeau d'outils principal] -->
+    <div class="flex items-center gap-3 bg-slate-700 rounded-lg px-3 py-2 border border-slate-600 shadow-lg">   
      
       <!-- BOUTON 1 — Navigation -->
       <div class="relative">
@@ -211,7 +271,7 @@
         >
           <span x-html="icons[selectedNav]"></span>
         </button>
-     
+
         <div 
           x-show="openNav"
           @click.outside="openNav = false"
@@ -221,7 +281,7 @@
         >
           <!-- Déplacer -->
           <button 
-            @click="selectedNav = 'deplacer'; openNav = false" 
+            @click="selectedNav = 'deplacer'; activeCategory = 'nav'; openNav = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -230,10 +290,10 @@
             </div>
             <span class="text-slate-400 text-xs">(H)</span>
           </button>
-     
+
           <!-- Défiler -->
           <button 
-            @click="selectedNav = 'defiler'; openNav = false" 
+            @click="selectedNav = 'defiler'; activeCategory = 'nav'; openNav = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -255,7 +315,7 @@
         >
           <span x-html="icons[selectedView]"></span>
         </button>
-     
+
         <div 
           x-show="openView"
           @click.outside="openView = false"
@@ -265,7 +325,7 @@
         >
           <!-- Zoomer -->
           <button 
-            @click="selectedView = 'zoomer'; openView = false" 
+            @click="selectedView = 'zoomer'; activeCategory = 'view'; openView = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -274,10 +334,10 @@
             </div>
             <span class="text-slate-400 text-xs">(Z)</span>
           </button>
-     
+
           <!-- Contraste -->
           <button 
-            @click="selectedView = 'contrast'; openView = false" 
+            @click="selectedView = 'contrast'; activeCategory = 'view'; openView = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -309,7 +369,7 @@
         >
           <!-- Option 1 : Texte -->
           <button 
-            @click="selectedAnnot = 'texte'; openAnnot = false" 
+            @click="selectedAnnot = 'texte'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -321,7 +381,7 @@
 
           <!-- Option 2 : Tracer un trait -->
           <button 
-            @click="selectedAnnot = 'trait'; openAnnot = false" 
+            @click="selectedAnnot = 'trait'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -333,7 +393,7 @@
 
           <!-- Option 3 : Dessiner une ROI -->
           <button 
-            @click="selectedAnnot = 'roi'; openAnnot = false" 
+            @click="selectedAnnot = 'roi'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -345,7 +405,7 @@
 
           <!-- Option 4 : Cibler -->
           <button 
-            @click="selectedAnnot = 'cibler'; openAnnot = false" 
+            @click="selectedAnnot = 'cibler'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
           >
             <div class="flex items-center gap-2">
@@ -356,12 +416,10 @@
           </button>
         </div>
       </div>
-
     
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
 
-    
-      <!-- [4 : Mesures] -->
+          <!-- [4 : Mesures] -->
       <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
           🧩 <span class="text-xs text-slate-400">(M)</span>
@@ -474,7 +532,7 @@
 
     <!-- [Zone viewer] à coder pour le layout -->
     <div class="flex-1 flex overflow-hidden">
-      <div class="flex-1 flex items-center justify-center bg-black overflow-hidden">
+      <div :class="getCursorClass()" class="flex-1 flex items-center justify-center bg-black overflow-hidden">
         <img src="https://via.placeholder.com/1200x1200" alt="CT Viewer" class="w-full h-full object-contain" />
       </div>
 
