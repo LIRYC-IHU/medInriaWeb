@@ -147,7 +147,7 @@
   <!-- [Tool Bar] -->
   <header class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
     <!-- [Bandeau d'outils principal] -->
-    <div 
+    <div class="flex items-center gap-3 bg-slate-700 rounded-lg px-3 py-2 border border-slate-600 shadow-lg"
   x-data="{
     // États d'ouverture des menus
     openNav: false,
@@ -376,8 +376,7 @@
           <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Rayon <span class="text-slate-400">(R)</span></button>
         </div>
       </div>
-    </div>
-    
+      
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
     
       <!-- [5 : Annotation] -->
@@ -386,7 +385,7 @@
           🧩 <span class="text-xs text-slate-400">(N)</span>
         </button>
         <div 
-          x-show="open" 
+        x-show="open" 
           @click.outside="open = false" 
           x-transition 
           class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-44 p-1 z-50">
@@ -397,7 +396,7 @@
       </div>
     
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
-    
+      
       <!-- [6 : Transformation] -->
       <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
@@ -413,23 +412,24 @@
           <button class="w-full flex justify-between px-2 py-1 text-sm rounded hover:bg-slate-700">👻 Miroir V <span class="text-slate-400">(V)</span></button>
         </div>
       </div>
+    </div>
     
     </div>
-          
-      <!-- [Bouton connexion avec modale] -->
-      <div x-data="{ open: false }">
-        <button @click="open = true" class="flex items-center text-lg gap-4 btn btn-sm btn-outline btn-info px-8">
-          Se connecter
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 fill-current text-white">
-            <path d="m13 16 5-4-5-4v3H4v2h9z"/>
+    
+    <!-- [Bouton connexion avec modale] -->
+    <div x-data="{ open: false }">
+      <button @click="open = true" class="flex items-center text-lg gap-4 btn btn-sm btn-outline btn-info px-8">
+        Se connecter
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 fill-current text-white">
+          <path d="m13 16 5-4-5-4v3H4v2h9z"/>
             <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"/>
           </svg>
         </button>
-
+        
         <!-- Modal DaisyUI gérée par Alpine -->
         <div :class="open ? 'modal modal-open' : 'modal'" x-show="open" x-cloak>
           <div class="modal-box bg-slate-800 text-white">
-
+            
             <fieldset class="fieldset bg-slate-700 border-slate-600 rounded-box w-full border p-4">
               <legend class="fieldset-legend font-bold text-cyan-400">Connexion</legend>
 
