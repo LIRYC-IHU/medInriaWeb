@@ -537,37 +537,81 @@
       </div>
 
       <!-- [Sidebar droite] -->
-      <aside class="w-80 bg-slate-800 p-4 flex flex-col justify-between h-full overflow-y-auto">
-        <div>
-          <img src="https://via.placeholder.com/250x250" alt="Secondary Viewer" class="rounded-lg mb-4 w-full object-contain" />
-        </div>
-        <div class="bg-slate-700 p-4 rounded-lg mb-4">
-          <button class="btn btn-accent w-full">RUN SCRIPT</button>
-        </div>
-
-        <!-- [Menu drawer] -->
-        <div class="drawer drawer-end">
-          <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-          <div class="drawer-content flex justify-end">
-            <label for="my-drawer" class="btn btn-outline btn-info">Détails</label>
-          </div>
-          <div class="drawer-side">
-            <label for="my-drawer" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-              <li><a>Item 1</a></li>
-              <li><a>Item 2</a></li>
-              <li><a>Item 3</a></li>
-              <li><label for="my-drawer" class="btn">Fermer</label></li>
-            </ul>
-          </div>
+      <aside class="w-80 bg-slate-800 flex flex-col h-full overflow-hidden">
+        
+        <!-- MOITIÉ SUPÉRIEURE : 2nd Zone Viewer -->
+        <div class="flex-1 bg-black border-2 border-cyan-500 rounded-lg m-4 overflow-hidden flex items-center justify-center">
+          <img 
+            src="https://via.placeholder.com/250x250/1a1a1a/cyan?text=2nd+Viewer" 
+            alt="Secondary Viewer" 
+            class="w-full h-full object-contain"
+          />
         </div>
 
-        <!-- [Bloc Task repot] à déterminer ou le placer -->
-        <div class="bg-slate-700 rounded-lg p-4 text-xs space-y-1">
+        <!-- BOUTON RUN SCRIPT -->
+        <div class="px-4 pb-2">
+          <button class="btn btn-accent w-full flex items-center justify-center gap-2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            RUN SCRIPT
+          </button>
+          <!-- Barre de progression ? dépendra si le script est en place ou non FF -->
+          <div class="mt-2 flex items-center gap-2 text-xs text-slate-400">
+            <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
+              <div class="bg-cyan-500 h-full" style="width: 36%"></div>
+            </div>
+            <span>8 / 22</span>
+          </div>
+        </div>
+
+        <!-- MOITIÉ INFÉRIEURE : Zone 3D -->
+        <div 
+          x-data="{ show3D: false }"
+          class="flex-1 bg-slate-900 border-2 border-cyan-500 rounded-lg m-4 mt-0 overflow-hidden flex items-center justify-center relative"
+        >
+          <!-- Bouton "Rendu 3D" -->
+          <button 
+            x-show="!show3D"
+            @click="show3D = true"
+            class="btn btn-outline btn-info gap-2"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+            Rendu 3D
+          </button>
+
+          <!-- Vue 3D (Rendered sur demande) -->
+          <div 
+            x-show="show3D" 
+            x-transition
+            class="w-full h-full bg-slate-900 flex items-center justify-center"
+          >
+            <img 
+              src="https://via.placeholder.com/300x400/2a2a2a/cyan?text=3D+Heart+Model" 
+              alt="3D Viewer" 
+              class="w-full h-full object-contain"
+            />
+            <!-- Bouton pour masquer le rendu 3D -->
+            <button 
+              @click="show3D = false"
+              class="absolute top-2 right-2 btn btn-xs btn-circle btn-ghost text-cyan-400 hover:bg-slate-700"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        <!-- TASK REPORT optionnel - peut être retiré si pas assez de place FF -->
+        <div class="bg-slate-700 rounded-lg p-3 mx-4 mb-4 text-xs space-y-1">
+          <p class="font-bold text-cyan-400">Task Report</p>
           <p><strong>Task Report</strong></p>
-          <p>Tasks needing attention: 3</p>
-          <p>Tasks failed to complete: 0</p>
-          <p>Tasks successfully completed: 5 of 12</p>
+                <p>Tasks needing attention: 3</p>
+                <p>Tasks failed to complete: 0</p>
+                <p>Tasks successfully completed: 5 of 12</p>
         </div>
       </aside>
     </div>
