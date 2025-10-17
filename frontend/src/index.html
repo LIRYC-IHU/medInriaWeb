@@ -26,12 +26,12 @@
 
 <body class="h-screen bg-slate-900 text-white flex overflow-hidden">
 
-  <!-- [Sidebar gauche] -->
+  <!-- [Left Sidebar] -->
   <aside class="w-64 bg-slate-800 flex flex-col h-full relative">
     <div class="flex-1 overflow-y-auto p-6">
       <div class="mb-8">
         <h1 class="text-5xl font-bold text-cyan-400 flex items-center gap-3">
-          <!-- icone Lyric ou appli à remplacer ici -->
+          <!--  Lyric icons (replace SVG here) -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 217.061 217.061" class="w-20 h-20 fill-current text-cyan-400">
             <path d="M182.198,205.491c-6.62,7.785-17.241,11.569-32.467,11.569c-0.002,0-0.005,0-0.008,0c-6.335-0.001-13.6-0.681-21.592-2.021
             c-66.912-11.219-70.308-34.4-70.308-71.295c0-27.397,17.425-37.19,28.179-40.625c-6.74-6.68-16.894-19.259-19.569-36.382
@@ -56,7 +56,7 @@
         <p class="text-sm text-slate-400 mt-1">By Liryc - L’institut des maladies du rythme cardiaque</p>
       </div>
 
-      <!-- [Sélecteur de dossier Data Source avec affichage des fichiers] -->
+      <!-- [File selector] -->
       <div 
         x-data="{ 
           folderName: '', 
@@ -64,7 +64,7 @@
           }" 
         class="mb-6">
 
-      <!-- [Bouton de sélection] -->
+      <!-- [Select button] -->
       <label class="btn btn-sm w-full text-lg btn-outline btn-info cursor-pointer gap-2"><svg fill="#FFFFFF width="1.5rem" height="1.5rem" viewBox="0 0 24 24" id="folder-search" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><path id="secondary" d="M21,22a1,1,0,0,1-.71-.29l-2.53-2.54a5,5,0,1,1,1.41-1.41l2.54,2.53a1,1,0,0,1,0,1.42A1,1,0,0,1,21,22ZM15,12a3,3,0,1,0,3,3A3,3,0,0,0,15,12Z" style="fill: rgb(44, 169, 188);"></path><path id="primary" d="M22,7v4.83A7.42,7.42,0,0,0,8.23,14.88,7.23,7.23,0,0,0,9,19H4a2,2,0,0,1-2-2V4A2,2,0,0,1,4,2H9a2,2,0,0,1,1.41.59L12.83,5H20A2,2,0,0,1,22,7Z" style="fill: rgb(255, 255, 255);"></path></svg>
         Select Folder
         <input 
@@ -84,7 +84,7 @@
           ">
       </label>
 
-      <!-- Affichage du dossier sélectionné -->
+      <!-- File display card -->
       <template x-if="folderName">
         <div class="mt-3 bg-slate-700 p-3 rounded-lg text-xs text-slate-300">
           <p class="truncate mb-2 flex items-center gap-2">
@@ -95,7 +95,7 @@
               <strong>Dossier :</strong> <span x-text="folderName"></span>
           </p>
 
-          <!-- Liste des fichiers -->
+          <!-- Files display list -->
           <ul class="space-y-1 max-h-48 overflow-y-auto">
             <template x-for="(file, index) in files.slice(0, 20)" :key="index">
               <li class="truncate flex items-center gap-2">
@@ -115,7 +115,7 @@
       </template>
     </div>
 
-    <!-- [Encart Infos de la série sélectionnée] -->
+    <!-- [Info card of elected file] -->
     <div class="bg-slate-700 rounded-lg p-4 text-base space-y-2">
       <div class="flex justify-between">
         <strong>ID:</strong>
@@ -143,6 +143,7 @@
       </div>
     </div>
 
+     <!-- Quick search - mock up only -->
     <div class="absolute bottom-0 left-0 w-full p-4 bg-slate-900 border-t border-slate-700">
       <input 
         type="text" 
@@ -152,7 +153,7 @@
     </div>
   </aside>
 
-<!-- Zone centrale -->
+<!-- [Center area] -->
 <main class="flex-1 flex flex-col h-full overflow-hidden"
   x-data="{
     // États d'ouverture des menus
@@ -260,10 +261,10 @@
 
   <!-- [Tool Bar] -->
   <header class="bg-slate-800 p-3 flex justify-between items-center border-b border-slate-700">
-    <!-- [Bandeau d'outils principal] -->
+    <!-- [Main Frame] -->
     <div class="flex items-center gap-3 bg-slate-700 rounded-lg px-3 py-2 border border-slate-600 shadow-lg">   
      
-      <!-- BOUTON 1 — Navigation -->
+      <!-- BUTTON 1 — Navigation -->
       <div class="relative">
         <button 
           @click="openNav = !openNav; openView = false; openAnnot = false"
@@ -279,7 +280,7 @@
           class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-40 p-1 z-50"
           style="display: none;"
         >
-          <!-- Déplacer -->
+          <!-- Hand -->
           <button 
             @click="selectedNav = 'deplacer'; activeCategory = 'nav'; openNav = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -291,7 +292,7 @@
             <span class="text-slate-400 text-xs">(H)</span>
           </button>
 
-          <!-- Défiler -->
+          <!-- Layer -->
           <button 
             @click="selectedNav = 'defiler'; activeCategory = 'nav'; openNav = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -307,7 +308,7 @@
      
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
 
-      <!-- BOUTON 2 — Vue -->
+      <!-- BUTTON 2 — View -->
       <div class="relative">
         <button 
           @click="openView = !openView; openNav = false; openAnnot = false"
@@ -323,7 +324,7 @@
           class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-40 p-1 z-50"
           style="display: none;"
         >
-          <!-- Zoomer -->
+          <!-- Zoom -->
           <button 
             @click="selectedView = 'zoomer'; activeCategory = 'view'; openView = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -335,7 +336,7 @@
             <span class="text-slate-400 text-xs">(Z)</span>
           </button>
 
-          <!-- Contraste -->
+          <!-- Contrast -->
           <button 
             @click="selectedView = 'contrast'; activeCategory = 'view'; openView = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -351,7 +352,7 @@
     
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
     
-      <!-- BOUTON 3 — Annoter -->
+      <!-- BUTTON 3 — Annotate -->
       <div class="relative">
         <button 
           @click="openAnnot = !openAnnot; openNav = false; openView = false"
@@ -367,7 +368,7 @@
           class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-lg w-48 p-1 z-50"
           style="display: none;"
         >
-          <!-- Option 1 : Texte -->
+          <!-- Option 1 : Text -->
           <button 
             @click="selectedAnnot = 'texte'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -379,7 +380,7 @@
             <span class="text-slate-400 text-xs">(T)</span>
           </button>
 
-          <!-- Option 2 : Tracer un trait -->
+          <!-- Option 2 : Line -->
           <button 
             @click="selectedAnnot = 'trait'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -391,7 +392,7 @@
             <span class="text-slate-400 text-xs">(D)</span>
           </button>
 
-          <!-- Option 3 : Dessiner une ROI -->
+          <!-- Option 3 : Draw a ROI -->
           <button 
             @click="selectedAnnot = 'roi'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -403,7 +404,7 @@
             <span class="text-slate-400 text-xs">(R)</span>
           </button>
 
-          <!-- Option 4 : Cibler -->
+          <!-- Option 4 : Target -->
           <button 
             @click="selectedAnnot = 'cibler'; activeCategory = 'annot'; openAnnot = false" 
             class="w-full flex items-center justify-between px-2 py-1 text-sm rounded hover:bg-slate-700"
@@ -419,7 +420,7 @@
     
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
 
-          <!-- [4 : Mesures] -->
+          <!-- [4 : Measures] -->
       <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
           🧩 <span class="text-xs text-slate-400">(M)</span>
@@ -437,7 +438,7 @@
       
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
     
-      <!-- [5 : Annotation] -->
+      <!-- [5 : ] -->
       <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
           🧩 <span class="text-xs text-slate-400">(N)</span>
@@ -455,7 +456,7 @@
     
       <div class="w-px h-6 bg-slate-600 mx-1"></div>
       
-      <!-- [6 : Transformation] -->
+      <!-- [6 : ] -->
       <div x-data="{ open: false }" class="relative">
         <button @click="open = !open" class="flex items-center gap-1 text-slate-200 hover:text-cyan-400">
           🧩 <span class="text-xs text-slate-400">(T)</span>
@@ -474,7 +475,7 @@
     
     </div>
     
-    <!-- [Bouton connexion avec modale] -->
+    <!-- [Modal connexion button] -->
     <div x-data="{ open: false }">
       <button @click="open = true" class="flex items-center text-lg gap-4 btn btn-sm btn-outline btn-info px-8">
         Se connecter
@@ -484,7 +485,7 @@
           </svg>
         </button>
         
-        <!-- Modal DaisyUI gérée par Alpine -->
+        <!-- DaisyUI modal processed by Alpine -->
         <div :class="open ? 'modal modal-open' : 'modal'" x-show="open" x-cloak>
           <div class="modal-box bg-slate-800 text-white">
             
@@ -515,14 +516,13 @@
             </fieldset>
 
             <div class="modal-action flex justify-between items-center">
-              <!-- Bouton connexion via gitlab ou compte au choix - à retirer si useless -->
+              <!-- Gitlab account login button (or any account) - get rid of it if useless -->
               <button class="btn btn-outline btn-warning flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M22.65 9.36l-1.49-4.57a.64.64 0 00-1.22 0l-1.43 4.58H5.49L4.06 4.79a.64.64 0 00-1.22 0L1.35 9.36a1.45 1.45 0 00.52 1.63l9.61 7.03a1.47 1.47 0 001.7 0l9.61-7.03a1.45 1.45 0 00.52-1.63z"/>
                 </svg>
                 Se connecter avec GitLab
               </button>
-              <!-- -->
               <button @click="open = false" class="btn">Fermer</button>
             </div>
           </div>
@@ -530,16 +530,16 @@
       </div>
     </header>
 
-    <!-- [Zone viewer] à coder pour le layout -->
+    <!-- [Zone viewer]  mock up only - layout and back connexion to be defined -->
     <div class="flex-1 flex overflow-hidden">
       <div :class="getCursorClass()" class="flex-1 flex items-center justify-center bg-black overflow-hidden">
         <img src="https://via.placeholder.com/1200x1200" alt="CT Viewer" class="w-full h-full object-contain" />
       </div>
 
-      <!-- [Sidebar droite] -->
+      <!-- [Right Sidebar] -->
       <aside class="w-80 bg-slate-800 flex flex-col h-full overflow-hidden">
         
-        <!-- MOITIÉ SUPÉRIEURE : 2nd Zone Viewer -->
+        <!-- Upper half : 2nd Zone Viewer -->
         <div class="flex-1 bg-black border-2 border-cyan-500 rounded-lg m-4 overflow-hidden flex items-center justify-center">
           <img 
             src="https://via.placeholder.com/250x250/1a1a1a/cyan?text=2nd+Viewer" 
@@ -548,7 +548,7 @@
           />
         </div>
 
-        <!-- BOUTON RUN SCRIPT -->
+        <!-- Run Script button -->
         <div class="px-4 pb-2">
           <button class="btn btn-accent w-full flex items-center justify-center gap-2">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -556,7 +556,7 @@
             </svg>
             RUN SCRIPT
           </button>
-          <!-- Barre de progression ? dépendra si le script est en place ou non FF -->
+          <!-- Progression bar ? depends if the script is still implanted -->
           <div class="mt-2 flex items-center gap-2 text-xs text-slate-400">
             <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
               <div class="bg-cyan-500 h-full" style="width: 36%"></div>
@@ -565,12 +565,12 @@
           </div>
         </div>
 
-        <!-- MOITIÉ INFÉRIEURE : Zone 3D -->
+        <!-- Lower half : 3D render on demand -->
         <div 
           x-data="{ show3D: false }"
           class="flex-1 bg-slate-900 border-2 border-cyan-500 rounded-lg m-4 mt-0 overflow-hidden flex items-center justify-center relative"
         >
-          <!-- Bouton "Rendu 3D" -->
+          <!-- Button  -->
           <button 
             x-show="!show3D"
             @click="show3D = true"
@@ -584,7 +584,7 @@
             Rendu 3D
           </button>
 
-          <!-- Vue 3D (Rendered sur demande) -->
+          <!-- 3D view -->
           <div 
             x-show="show3D" 
             x-transition
@@ -595,7 +595,7 @@
               alt="3D Viewer" 
               class="w-full h-full object-contain"
             />
-            <!-- Bouton pour masquer le rendu 3D -->
+            <!-- Close button -->
             <button 
               @click="show3D = false"
               class="absolute top-2 right-2 btn btn-xs btn-circle btn-ghost text-cyan-400 hover:bg-slate-700"
@@ -605,7 +605,7 @@
           </div>
         </div>
 
-        <!-- TASK REPORT optionnel - peut être retiré si pas assez de place FF -->
+        <!-- TASK REPORT - Mock up only -->
         <div class="bg-slate-700 rounded-lg p-3 mx-4 mb-4 text-xs space-y-1">
           <p class="font-bold text-cyan-400">Task Report</p>
           <p><strong>Task Report</strong></p>
