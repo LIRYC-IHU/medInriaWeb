@@ -37,4 +37,4 @@ Aucune installation ni compilation n’est nécessaire : tout est importé depui
 | **Styles & Layout** | Apparence moderne et responsive | TailwindCSS |
 
 
-Fabien Francezon - 23 octobre 2025
+*Fabien Francezon - 23 octobre 2025*
