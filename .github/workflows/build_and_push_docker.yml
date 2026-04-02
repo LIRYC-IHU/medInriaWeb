@@ -25,6 +25,14 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build Trame frontend
+        run: |
+          docker run --rm \
+            -e TRAME_CLIENT_TYPE=vue3 \
+            -v "${{ github.workspace }}/bundles/docker:/deploy" \
+            -v "${{ github.workspace }}:/local-app" \
+            kitware/trame build
+
       - name: Extract metadata (tags and labels)
         id: meta
         uses: docker/metadata-action@v5
@@ -38,7 +46,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./bundles/docker
+          file: ./bundles/docker/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
