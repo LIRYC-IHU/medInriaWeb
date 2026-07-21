@@ -14,7 +14,7 @@ dependencies = [
     "trame-rca==2.4.2",
     "trame-server==3.10.0",
     "trame-vuetify==3.2.1",
-    "vtk==9.5.2"
+    "vtk>=9.5.2"
 ]
 requires-python = ">=3.10"
 readme = "README.md"

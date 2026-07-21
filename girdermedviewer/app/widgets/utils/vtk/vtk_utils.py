@@ -36,8 +36,10 @@ from vtk import (
     vtkResliceCursorWidget,
     vtkSmartVolumeMapper,
     vtkSTLReader,
+    vtkPolyDataReader,
     vtkTransform,
     vtkTransformFilter,
+    vtkTextActor,
     vtkVolume,
     vtkVolumeProperty,
     vtkXMLImageDataReader,
@@ -51,7 +53,9 @@ from vtkmodules.all import (
     vtkResliceImageViewer,
     vtkWidgetEvent,
 )
+
 from vtkmodules.vtkRenderingCore import vtkProp
+from vtkmodules.vtkRenderingAnnotation import vtkScalarBarActor
 
 logger = logging.getLogger(__name__)
 
@@ -788,7 +792,7 @@ def supported_volume_extensions():
 
 
 def supported_mesh_extensions():
-    return (".stl", ".vtp")
+    return (".stl", ".vtp", ".vtk")
 
 
 def find_subfolder_with_most_files(directory):
@@ -887,6 +891,12 @@ def preload_mesh(file_path):
         reader.SetFileName(file_path)
         reader.Update()
         return reader
+        
+    if file_path.endswith(".vtk"): # Including vtk files   
+        reader = vtkPolyDataReader()
+        reader.SetFileName(file_path)
+        reader.Update()
+        return reader
 
     raise Exception(f"File format is not handled for {file_path}")
 
@@ -953,3 +963,29 @@ def get_random_color():
     color = color_series.GetColor(last_color)
     last_color += 1
     return "#{:02x}{:02x}{:02x}".format(*color)
+
+
+def create_scalar_bar_actor(mapper, orientation="vertical", width=0.1, height=0.8, position=(0.82, 0.1)):
+    """Create a scalar bar actor for visualizing color mapping."""
+
+    lut = mapper.GetLookupTable()   # Find lookup table of the mapper 
+    if lut is None:
+        raise ValueError("Mapper does not have a lookup table")
+
+    scalar_bar = vtkScalarBarActor() # Create the scalar bar
+    scalar_bar.SetLookupTable(lut)   # Set the color of the scalar bar based on the lookuptable of the mapper
+
+    if orientation == "vertical":
+        scalar_bar.SetOrientationToVertical()
+    else:
+        scalar_bar.SetOrientationToHorizontal()
+
+    scalar_bar.SetWidth(width)
+    scalar_bar.SetHeight(height)
+    scalar_bar.SetPosition(position[0], position[1])
+    scalar_bar.SetNumberOfLabels(5)
+    scalar_bar.GetLabelTextProperty().SetFontSize(12)
+    scalar_bar.SetVisibility(False)   # hidden initially
+            
+    return scalar_bar
+    

@@ -115,6 +115,16 @@ class MeshDisplayColorUI(html.Div):
                             max=("active_array.array_min_max[1]",),
                             v_model="array_color.array_range",
                         )
+                        
+                    # Adding a colorbar toggle component to the ui, so that you can decide whether you want to show the colorbar. The model 
+                    with html.Div(classes="display-property-setting"):
+                        Text("Colorbar", classes="text-subtitle")
+                        v3.VCheckbox(
+                            v_model=(f"{self.display}.show_colorbar",),
+                            label="Show colorbar",
+                            hide_details=True,
+                            density="compact",
+                        )
 
 
 class VolumeThreeDPresetsUI(html.Div):

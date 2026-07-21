@@ -25,6 +25,7 @@ class MeshDisplay(SceneObjectDisplay):
     active_array_id = Sync(str)
     solid_color = Sync(str)
     array_color = Sync(ArrayColor, has_dataclass=True)
+    show_colorbar = Sync(bool, False)
 
 
 class MeshObjectLogic(SceneObjectLogic):

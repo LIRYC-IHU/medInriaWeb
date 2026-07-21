@@ -92,6 +92,7 @@ from .vtk.vtk_utils import (
     set_volume_visibility,
     supported_mesh_extensions,
     supported_volume_extensions,
+    create_scalar_bar_actor,
 )
 
 __all__ = [
@@ -181,4 +182,5 @@ __all__ = [
     "set_volume_visibility",
     "supported_mesh_extensions",
     "supported_volume_extensions",
+    "create_scalar_bar_actor",
 ]

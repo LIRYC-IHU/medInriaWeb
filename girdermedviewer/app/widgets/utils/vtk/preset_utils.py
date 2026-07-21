@@ -201,21 +201,55 @@ class ColorPresetParser(PresetParser):
             vtkColorTransferFunction, "AddRGBPoint", preset.points, is_inverted
         )
         mapper = actor.GetMapper()
-
-        mapper.SelectColorArray(data_array_obj.title)
-        mapper.SetColorModeToMapScalars()
-        mapper.SetLookupTable(color_transfer_function)
-        mapper.SetScalarVisibility(True)
-
-        if not data_array_obj.data:
-            logger.info(f"Array {data_array_obj.title} not found.")
+        input_data = mapper.GetInput()
+        point_data = input_data.GetPointData()
+        
+        # Select the array and make sure the array is within the vtk 
+        array = point_data.GetArray(data_array_obj.title)
+        if array is None:
+            logger.error("Array not found on this actor dataset")
+            mapper.ScalarVisibilityOff()
             return False
 
+        # Set the array as active scalar           
+        point_data.SetActiveScalars(data_array_obj.title) 
+
+        # Convert transfer function into LUT for mesh rendering 
+        """In this section mapper.SetLookupTable(color_transfer_function) has been replaced by lut. 
+        The same method as by the slicer has been used. LUT is better for meshes, the colortransferfucntion is suitable for volumes, but not for meshes"""
+        
         min_val = max(data_array_obj.array_min_max[0], preset_range[0])
         max_val = min(data_array_obj.array_min_max[1], preset_range[1])
 
-        mapper.SetScalarRange(min_val, max_val)
+        lut = vtkLookupTable()
+        lut.SetNumberOfTableValues(256)
+        lut.SetRange(min_val, max_val)
+        lut.Build()
+        
+        lut.SetNanColor(1.0, 1.0, 1.0, 1.0)  # NaNs shown as white
+        
+        self._populate_lut_from_transfer_function(
+            color_transfer_function,
+            lut,
+        )
+        
+        lut.Modified()
+        
+        # Configure mapper 
+        mapper.SetScalarModeToUsePointData()
+        mapper.SetColorModeToMapScalars()
+        mapper.SetLookupTable(lut)
         mapper.SetUseLookupTableScalarRange(True)
+        mapper.ScalarVisibilityOn()
+        
+        # Set neutral actor color so LUT drives rendering 
+        prop = actor.GetProperty()
+        prop.SetColor(1.0, 1.0, 1.0)  # neutral base
+        prop.SetDiffuse(1.0)
+        prop.SetAmbient(0.0)
+        
+        # Force updates 
+        mapper.Modified()
 
         return True
 

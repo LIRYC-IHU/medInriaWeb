@@ -69,21 +69,32 @@ class MeshDisplayHandler:
             for view in self.views_logic.views:
                 modified = view.mesh_handler.update_mesh_array_color(mesh_logic._id, mesh_logic.display)
                 if modified:
-                    view.update()
-
+                    view.update()       
         return _update_array_coloring
+        
 
     def update_active_array(self, mesh_logic: MeshObjectLogic) -> Callable:
         def _update_active_array(*_args) -> None:
             active_array = get_instance(mesh_logic.display.active_array_id)
-            assert isinstance(active_array, DataArray)
+            assert isinstance(active_array, DataArray)                 
             if active_array.coloring_mode == MeshColoringMode.SOLID:
                 self.update_solid_coloring(mesh_logic)()
 
             elif active_array.coloring_mode == MeshColoringMode.ARRAY:
                 mesh_logic.display.array_color.array_range = active_array.array_min_max
-
+                self.update_array_coloring(mesh_logic)()
+    
         return _update_active_array
+        
+    # Way of notifiying that the colorbar should be displayed - it calls update_scalar_bar_visibility function defined in mesh_handler.py within logic.
+    def update_colorbar(self, mesh_logic: MeshObjectLogic) -> Callable:
+        def _update_colorbar(*_args):
+            for view in self.views_logic.views:
+                modified = view.mesh_handler._refresh_scalar_bar(mesh_logic._id, mesh_logic.display)
+                if modified:
+                    view.update()
+
+        return _update_colorbar
 
 
 class MeshHandler(ObjectHandler):
@@ -103,13 +114,11 @@ class MeshHandler(ObjectHandler):
         mesh_logic.display.watch(("active_array_id",), self._display_handler.update_active_array(mesh_logic))
         mesh_logic.display.watch(("solid_color",), self._display_handler.update_solid_coloring(mesh_logic))
         mesh_logic.display.watch(("is_threed_visible",), self._display_handler.update_threed_visibility(mesh_logic))
-        mesh_logic.display.array_color.watch(
-            ("name", "is_inverted", "array_range"),
-            self._display_handler.update_array_coloring(mesh_logic),
-        )
+        mesh_logic.display.array_color.watch(("name", "is_inverted", "array_range"), self._display_handler.update_array_coloring(mesh_logic))
         mesh_logic.display.watch(("is_visible",), self._display_handler.update_visibility(mesh_logic))
-
+        mesh_logic.display.watch(("show_colorbar",), self._display_handler.update_colorbar(mesh_logic)) #Add a line to watch on show_colorbar state.
         mesh_logic.updated.connect(self.views_logic.update_views)
+
 
     def add_object_to_views(self, mesh_logic: MeshObjectLogic) -> None:
         self.object_logics[mesh_logic._id] = mesh_logic
@@ -123,6 +132,8 @@ class MeshHandler(ObjectHandler):
         mesh_logic.display.clear_watchers()
         self.object_logics.pop(mesh_logic._id)
         self.unregister_object_from_views(mesh_logic)
+   
 
     def unregister_object_from_views(self, mesh_logic: MeshObjectLogic) -> None:
         self.views_logic.remove_mesh(mesh_logic._id)
+
